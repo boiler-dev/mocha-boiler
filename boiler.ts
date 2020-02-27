@@ -1,9 +1,9 @@
 import { join } from "path"
-import { InstallBoiler } from "boiler-dev"
+import { GenerateBoiler } from "boiler-dev"
 
-export const installBoiler: InstallBoiler = async ({
-  destDir,
+export const generate: GenerateBoiler = async ({
   files,
+  rootDirPath,
 }) => {
   const actions = []
 
@@ -15,7 +15,7 @@ export const installBoiler: InstallBoiler = async ({
 
       actions.push({
         action: "write",
-        path: join(destDir, "test", name),
+        path: join(rootDirPath, "test", name),
         source,
       })
     }
@@ -25,7 +25,7 @@ export const installBoiler: InstallBoiler = async ({
 
       actions.push({
         action: "write",
-        path: join(destDir, ".mocharc.json"),
+        path: join(rootDirPath, ".mocharc.json"),
         source,
       })
     }
