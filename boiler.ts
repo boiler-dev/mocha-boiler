@@ -3,7 +3,7 @@ import { GenerateBoiler } from "boiler-dev"
 
 export const generate: GenerateBoiler = async ({
   files,
-  rootDirPath,
+  cwdPath,
 }) => {
   const actions = []
 
@@ -15,7 +15,7 @@ export const generate: GenerateBoiler = async ({
 
       actions.push({
         action: "write",
-        path: join(rootDirPath, "test", name),
+        path: join(cwdPath, "test", name),
         source,
       })
     }
@@ -25,7 +25,7 @@ export const generate: GenerateBoiler = async ({
 
       actions.push({
         action: "write",
-        path: join(rootDirPath, ".mocharc.json"),
+        path: join(cwdPath, ".mocharc.json"),
         source,
       })
     }
