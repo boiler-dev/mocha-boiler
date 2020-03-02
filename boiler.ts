@@ -12,12 +12,6 @@ export const install: InstallBoiler = async ({
     source: ["@types/mocha", "expect", "mocha", "ts-node"],
   })
 
-  actions.push({
-    action: "merge",
-    path: join(cwdPath, "tsconfig.base.json"),
-    source: { compilerOptions: { types: ["mocha"] } },
-  })
-
   return actions
 }
 
@@ -50,6 +44,12 @@ export const generate: GenerateBoiler = async ({
       })
     }
   }
+
+  actions.push({
+    action: "merge",
+    path: join(cwdPath, "tsconfig.base.json"),
+    source: { compilerOptions: { types: ["mocha"] } },
+  })
 
   return actions
 }
