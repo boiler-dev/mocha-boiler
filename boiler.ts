@@ -47,6 +47,12 @@ export const generate: GenerateBoiler = async ({
 
   actions.push({
     action: "merge",
+    path: join(cwdPath, "package.json"),
+    source: { scripts: { test: "mocha" } },
+  })
+
+  actions.push({
+    action: "merge",
     path: join(cwdPath, "tsconfig.base.json"),
     source: { compilerOptions: { types: ["mocha"] } },
   })
