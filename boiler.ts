@@ -1,9 +1,7 @@
 import { join } from "path"
 import { ActionBoiler } from "boiler-dev"
 
-export const install: ActionBoiler = async ({
-  cwdPath,
-}) => {
+export const install: ActionBoiler = async () => {
   const actions = []
 
   actions.push({
@@ -15,45 +13,30 @@ export const install: ActionBoiler = async ({
   return actions
 }
 
-export const generate: ActionBoiler = async ({
-  files,
-  cwdPath,
-}) => {
+export const generate: ActionBoiler = async () => {
   const actions = []
 
-  for (const file of files) {
-    const { name } = file
+  actions.push({
+    action: "write",
+    path: ".mocharc.json",
+    sourcePath: "mocharc.json",
+  })
 
-    if (name === "expect.ts") {
-      const { source } = file
-
-      actions.push({
-        action: "write",
-        path: join(cwdPath, "test", name),
-        source,
-      })
-    }
-
-    if (name === "mocharc.json") {
-      const { source } = file
-
-      actions.push({
-        action: "write",
-        path: join(cwdPath, ".mocharc.json"),
-        source,
-      })
-    }
-  }
+  actions.push({
+    action: "write",
+    path: "test/expect.ts",
+    sourcePath: "tsignore/expect.ts",
+  })
 
   actions.push({
     action: "merge",
-    path: join(cwdPath, "package.json"),
+    path: "package.json",
     source: { scripts: { test: "mocha" } },
   })
 
   actions.push({
     action: "merge",
-    path: join(cwdPath, "tsconfig.base.json"),
+    path: "tsconfig.base.json",
     source: { compilerOptions: { types: ["mocha"] } },
   })
 
